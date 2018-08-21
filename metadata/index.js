@@ -1,9 +1,8 @@
 const deployment = require("./deployment");
+const company = require("./company");
 
 module.exports = {
-    company: {
-        name: "CyberLoop Consulting"
-    },
-    author: "Alessandro Molari",
-    deployment
+  company,
+  author: "Alessandro Molari",
+  deployment
 };
