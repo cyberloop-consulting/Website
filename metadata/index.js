@@ -3,6 +3,5 @@ const company = require("./company");
 
 module.exports = {
   company,
-  author: "Alessandro Molari",
   deployment
 };
