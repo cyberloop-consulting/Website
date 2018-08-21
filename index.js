@@ -11,6 +11,7 @@ const drafts = require("metalsmith-drafts");
 const layouts = require("metalsmith-layouts");
 const permalinks = require("metalsmith-permalinks");
 const algolia = require("metalsmith-algolia");
+const express = require("metalsmith-express");
 
 const argv = minimist(process.argv.slice(2), {
   string: ["environment", "algolia"],
@@ -63,6 +64,7 @@ m.use(
   })
 );
 if (watchEnabled) {
+  m.use(express());
   m.use(
     watch({
       paths: {
