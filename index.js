@@ -11,19 +11,26 @@ const msIf = require("metalsmith-if");
 const drafts = require("metalsmith-drafts");
 const layouts = require("metalsmith-layouts");
 const permalinks = require("metalsmith-permalinks");
+const algolia = require("metalsmith-algolia");
 
 const argv = minimist(process.argv.slice(2), {
-  string: ["environment"],
+  string: ["environment", "algolia"],
   boolean: ["watch", "deploy"],
-  alias: { e: "environment", w: "watch", d: "deploy" },
+  alias: { e: "environment", w: "watch", d: "deploy", a: "algolia" },
   default: { environment: "development", watch: false, deploy: false }
 });
 
 const environment = argv.environment;
+const algoliaPrivateKey = argv.algolia;
 const watchEnabled = !!argv.watch;
 const shouldDeploy =
   environment === "production" && !watchEnabled && argv.deploy;
 const buildDirectory = `./build/${environment}`;
+
+if (shouldDeploy && !algoliaPrivateKey) {
+  log("When deploying the Algolia Private Key should be provided!");
+  process.exit(1);
+}
 
 log("Using environment %o", environment);
 if (watchEnabled) log("Livereload enabled, watching for file changes..");
@@ -64,6 +71,16 @@ Metalsmith(__dirname)
     )
   )
   .use(debug())
+  .use(
+    msIf(
+      algoliaPrivateKey,
+      algolia({
+        projectId: "RFJN6AJVVQ",
+        privateKey: algoliaPrivateKey,
+        index: "CONTENT"
+      })
+    )
+  )
   .build(err => {
     const buildFinishTime = new Date().toISOString();
 
