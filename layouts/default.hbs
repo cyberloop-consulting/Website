@@ -3,13 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{{#default title company.name}}{{/default}}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{{ default title company.name }}</title>
+
+    <meta name="keywords" content="{{ website.keywords }}">
+    <meta name="description" content="{{ join website.description }}">
+    <meta name="author" content="{{ website.author }}">
 </head>
 
 <body>
     {{{ contents }}}
 
-    {{#if watchEnabled}}
+    {{#if watchEnabled }}
         <script src="http://localhost:35729/livereload.js"></script>
     {{/if}}
 </body>

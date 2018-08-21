@@ -12,6 +12,8 @@ const layouts = require("metalsmith-layouts");
 const permalinks = require("metalsmith-permalinks");
 const algolia = require("metalsmith-algolia");
 const express = require("metalsmith-express");
+const sitemap = require("metalsmith-sitemap");
+const inPlace = require("metalsmith-in-place");
 
 const argv = minimist(process.argv.slice(2), {
   string: ["environment", "algolia"],
@@ -31,6 +33,7 @@ const watchEnabled = !!argv.watch;
 const shouldDeploy =
   environment === "production" && !watchEnabled && argv.deploy;
 const buildDirectory = `./build/${environment}`;
+const sourceDirectory = "./src";
 
 if (shouldDeploy && !algoliaPrivateKey) {
   log("When deploying the Algolia Private Key should be provided!");
@@ -48,10 +51,11 @@ const metadata = Object.assign(require("./metadata"), {
 });
 
 m = Metalsmith(__dirname);
-m.source("./src");
+m.source(sourceDirectory);
 m.destination(buildDirectory);
 m.metadata(metadata);
 m.use(drafts());
+m.use(inPlace());
 m.use(
   layouts({
     directory: "./layouts",
@@ -85,6 +89,11 @@ if (algoliaPrivateKey) {
     })
   );
 }
+m.use(
+  sitemap({
+    hostname: metadata.website.hostname
+  })
+);
 m.use(debug());
 m.build(err => {
   const buildFinishTime = new Date().toISOString();
