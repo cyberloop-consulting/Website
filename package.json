@@ -1,0 +1,37 @@
+{
+  "name": "cyberloop",
+  "version": "1.0.0",
+  "description": "CyberLoop Consulting Official Website",
+  "main": "index.js",
+  "scripts": {
+    "build": "run npm install && run DEBUG=cyberloop node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyberloop-consulting/website.git"
+  },
+  "author": "Alessandro Molari",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/cyberloop-consulting/website/issues"
+  },
+  "homepage": "https://github.com/cyberloop-consulting/website#readme",
+  "private": true,
+  "dependencies": {
+    "ghpages": "0.0.10",
+    "handlebars-helpers": "^0.10.0",
+    "jstransformer-handlebars": "^1.1.0",
+    "metalsmith": "^2.3.0",
+    "metalsmith-algolia": "^0.1.0",
+    "metalsmith-debug": "^1.2.0",
+    "metalsmith-drafts": "0.0.1",
+    "metalsmith-if": "^0.1.1",
+    "metalsmith-layouts": "^2.1.0",
+    "metalsmith-permalinks": "^0.5.0",
+    "metalsmith-watch": "^1.0.3",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "cross-run": "^1.0.1"
+  }
+}

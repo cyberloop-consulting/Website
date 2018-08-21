@@ -1,0 +1,9 @@
+# Editors / IDEs
+/.idea
+
+# Build artifacts
+/build
+/node_modules
+
+# Temporary files
+/tmp
