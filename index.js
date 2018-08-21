@@ -17,6 +17,18 @@ const sitemap = require("metalsmith-sitemap");
 const inPlace = require("metalsmith-in-place");
 const discoverPartials = require("metalsmith-discover-partials");
 
+function iif(condition, trueFn, falseFn) {
+  if (condition) {
+    return trueFn();
+  } else if (falseFn) {
+    return falseFn();
+  } else {
+    return function(files, metalsmith, done) {
+      done();
+    };
+  }
+}
+
 const argv = minimist(process.argv.slice(2), {
   string: ["environment", "algolia"],
   boolean: ["watch", "deploy"],
@@ -54,18 +66,6 @@ const metadata = Object.assign(require("./metadata"), {
   environment,
   watchEnabled
 });
-
-function iif(condition, trueFn, falseFn) {
-  if (condition) {
-    return trueFn();
-  } else if (falseFn) {
-    return falseFn();
-  } else {
-    return function(files, metalsmith, done) {
-      done();
-    };
-  }
-}
 
 Metalsmith(__dirname)
   .source(sourceDirectory)
