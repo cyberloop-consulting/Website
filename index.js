@@ -68,31 +68,32 @@ Metalsmith(__dirname)
     const buildFinishTime = new Date().toISOString();
 
     if (err) {
-      throw err;
+      log(err);
     } else {
       log("Build successfully finished at %o", buildFinishTime);
-    }
 
-    if (shouldDeploy) {
-      log(
-        "Performing deployment of %o to %o",
-        buildDirectory,
-        metadata.deployment.repository
-      );
-      ghpages.publish(
-        buildDirectory,
-        {
-          branch: metadata.deployment.branch,
-          repo: metadata.deployment.repository,
-          message: `Website Built at ${buildFinishTime}`
-        },
-        err => {
-          if (err) {
-            throw err;
-          } else {
-            log("Deployment successfully finished");
+      if (shouldDeploy) {
+        log(
+          "Performing deployment of %o to %o",
+          buildDirectory,
+          metadata.deployment.repository
+        );
+
+        ghpages.publish(
+          buildDirectory,
+          {
+            branch: metadata.deployment.branch,
+            repo: metadata.deployment.repository,
+            message: `Website Built at ${buildFinishTime}`
+          },
+          err => {
+            if (err) {
+              log(err);
+            } else {
+              log("Deployment successfully finished");
+            }
           }
-        }
-      );
+        );
+      }
     }
   });
