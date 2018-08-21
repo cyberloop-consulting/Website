@@ -16,6 +16,7 @@ The command accepts the following arguments:
 - `--environment=<env>` to specify a build environment, supported are:
     - `development` (*default*)
     - `production`
+- `--algolia=<pkey>` to specify Algolia private key, if provided the content index will be updated
 - `--deploy` to perform deployment after build (if successful)
 
 To correctly pass arguments you need to include `--` between the command and the arguments.
@@ -23,8 +24,16 @@ To correctly pass arguments you need to include `--` between the command and the
 ## Directory Structure
 
 - `src`: website pages
+    - `vendor`: third-party dependencies
 - `layouts`: layouts for website pages
 - `metadata`: additional data that will be available in layouts
 - `build`: built artifacts
     - `build/development`: built artifacts in "development" environment
     - `build/production`: built artifacts in "development" environment
+
+## Updating
+
+This website is based on `Ezy` template.
+When a new version is released, this website should be updated accordingly, based on the following rules:
+
+- Dump `ezy/vendor` folder to `src/vendor`
