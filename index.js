@@ -1,6 +1,6 @@
 const Metalsmith = require("metalsmith");
 require("handlebars-helpers")();
-const ghpages = require("ghpages");
+const ghpages = require("gh-pages");
 const minimist = require("minimist");
 const log = require("debug")("cyberloop");
 
@@ -74,7 +74,11 @@ Metalsmith(__dirname)
     }
 
     if (shouldDeploy) {
-      log("Performing deployment to %o", metadata.deployment.repository);
+      log(
+        "Performing deployment of %o to %o",
+        buildDirectory,
+        metadata.deployment.repository
+      );
       ghpages.publish(
         buildDirectory,
         {
