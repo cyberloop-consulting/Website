@@ -1,11 +1,14 @@
-const Metalsmith = require("metalsmith");
+// ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄ REQUIRES ┄┄
 
-require("handlebars-helpers")();
+const _ = require("lodash");
 const ghpages = require("gh-pages");
 const minimist = require("minimist");
 const log = require("debug")("cyberloop");
 
-// Plugins
+// ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄ METALSMITH ← REQUIRES ┄┄
+
+const Metalsmith = require("metalsmith");
+
 const debug = require("metalsmith-debug");
 const watch = require("metalsmith-watch");
 const drafts = require("metalsmith-drafts");
@@ -16,8 +19,14 @@ const express = require("metalsmith-express");
 const sitemap = require("metalsmith-sitemap");
 const inPlace = require("metalsmith-in-place");
 const discoverPartials = require("metalsmith-discover-partials");
+const staticFiles = require("metalsmith-static");
+const autoprefixer = require("metalsmith-autoprefixer");
 
-function iif(condition, trueFn, falseFn) {
+require("handlebars-helpers")();
+
+// ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄ METALSMITH PLUGINS ┄┄
+
+function pluginIf(condition, trueFn, falseFn) {
   if (condition) {
     return trueFn();
   } else if (falseFn) {
@@ -28,6 +37,8 @@ function iif(condition, trueFn, falseFn) {
     };
   }
 }
+
+// ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄ ARGUMENTS PARSING ┄┄
 
 const argv = minimist(process.argv.slice(2), {
   string: ["environment", "algolia"],
@@ -41,54 +52,71 @@ const argv = minimist(process.argv.slice(2), {
   }
 });
 
-const environment = argv.environment;
-const algoliaPrivateKey = argv.algolia;
-const watchEnabled = !!argv.watch;
-const shouldDeploy =
-  environment === "production" && !watchEnabled && argv.deploy;
+// ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄ METADATA ┄┄
 
-const sourceDirectory = "./src";
-const partialsDirectory = "./partials";
-const layoutsDirectory = "./layouts";
-const buildDirectory = `./build/${environment}`;
+const metadata = _.merge(require("./metadata")(argv.environment), {
+  build: {
+    environment: argv.environment,
+    watch: argv.watch
+  },
+  deployment: {
+    algolia: {
+      privateKey: argv.algolia
+    },
+    enabled: argv.environment === "production" && !argv.watch && argv.deploy
+  }
+});
 
-if (shouldDeploy && !algoliaPrivateKey) {
+// Validate Algolia Private Key
+if (metadata.deployment.enabled && !metadata.deployment.algolia.privateKey) {
   log("When deploying the Algolia Private Key should be provided!");
   process.exit(1);
 }
 
-log("Using environment %o", environment);
-if (watchEnabled) log("Livereload enabled, watching for file changes..");
-if (shouldDeploy) log("Deployment is enabled");
-if (algoliaPrivateKey) log("Algolia Index will be updated");
+log("Using environment %o", metadata.build.environment);
 
-const metadata = Object.assign(require("./metadata"), {
-  environment,
-  watchEnabled
-});
+if (metadata.build.watch) {
+  log("Livereload enabled, watching for file changes..");
+}
+
+if (metadata.deployment.enabled) {
+  log("Deployment is enabled");
+}
+
+if (metadata.deployment.algolia.privateKey) {
+  log("Algolia Index will be updated");
+}
+
+// ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄ METALSMITH CONFIGURATION ┄┄
 
 Metalsmith(__dirname)
-  .source(sourceDirectory)
-  .destination(buildDirectory)
+  .source(metadata.build.sourceDirectory)
+  .destination(metadata.build.buildDirectory)
   .metadata(metadata)
   .use(drafts())
-  .use(inPlace())
   .use(
-    layouts({
-      directory: layoutsDirectory,
-      default: "default.hbs",
-      pattern: ["**/*", "!css/**/*", "!js/**/*", "!vendor/**/*"]
+    staticFiles({
+      src: metadata.build.vendorDirectory,
+      dest: "vendor"
     })
   )
   .use(
     discoverPartials({
-      directory: partialsDirectory,
+      directory: metadata.build.partialsDirectory,
       pattern: /\.hbs$/
+    })
+  )
+  .use(inPlace())
+  .use(
+    layouts({
+      directory: metadata.build.layoutsDirectory,
+      default: "default.hbs",
+      pattern: ["**/*", "!css/**/*", "!js/**/*", "!img/**/*"]
     })
   )
   .use(
     permalinks({
-      pattern: ":title"
+      pattern: ":locale/:slug"
     })
   )
   .use(
@@ -96,26 +124,26 @@ Metalsmith(__dirname)
       hostname: metadata.website.hostname
     })
   )
+  .use(autoprefixer())
   .use(debug())
-  .use(iif(watchEnabled, m => m.use(express())))
+  .use(pluginIf(metadata.build.watch, () => express()))
   .use(
-    iif(watchEnabled, () =>
+    pluginIf(metadata.build.watch, () =>
       watch({
         paths: {
           "${source}/**/*": true,
-          "layouts/**/*": "**/*",
-          "metadata/**/*": "**/*"
+          "{layouts,partials,metadata}/**/*": "**/*"
         },
-        livereload: watchEnabled
+        livereload: metadata.build.watch
       })
     )
   )
   .use(
-    iif(algoliaPrivateKey, () =>
+    pluginIf(metadata.deployment.algolia.privateKey, () =>
       algolia({
-        projectId: "RFJN6AJVVQ",
-        privateKey: algoliaPrivateKey,
-        index: "CONTENT"
+        projectId: metadata.deployment.algolia.projectId,
+        privateKey: metadata.deployment.algolia.privateKey,
+        index: metadata.deployment.algolia.index
       })
     )
   )
@@ -127,15 +155,15 @@ Metalsmith(__dirname)
     } else {
       log("Build successfully finished at %o", buildFinishTime);
 
-      if (shouldDeploy) {
+      if (metadata.deployment.enabled) {
         log(
           "Performing deployment of %o to %o",
-          buildDirectory,
+          metadata.build.buildDirectory,
           metadata.deployment.repository
         );
 
         ghpages.publish(
-          buildDirectory,
+          metadata.build.buildDirectory,
           {
             branch: metadata.deployment.branch,
             repo: metadata.deployment.repository,

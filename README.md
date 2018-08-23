@@ -23,8 +23,8 @@ To correctly pass arguments you need to include `--` between the command and the
 
 ## Directory Structure
 
-- `src`: website pages
-    - `vendor`: third-party dependencies
+- `src`: website source code, including HTML pages and custom CSS, JS, images
+- `vendor`: third-party dependencies
 - `layouts`: layouts for website pages
 - `metadata`: additional data that will be available in layouts
 - `build`: built artifacts
@@ -36,4 +36,10 @@ To correctly pass arguments you need to include `--` between the command and the
 This website is based on `Ezy` template.
 When a new version is released, this website should be updated accordingly, based on the following rules:
 
-- Dump `ezy/vendor` folder to `src/vendor`
+- Dump `ezy/vendor` folder to `vendor`
+- Dump `ezy/js` folder to `src/js/ezy`
+- Dump `ezy/css` folder to `src/css/ezy`
+- Dump `ezy/img` folder to `src/img/ezy`
+
+**Update CSS files to reference images correctly**, changing url(...) to point to the correct image path inside
+`/img/ezy` folder.

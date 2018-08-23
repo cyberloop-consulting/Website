@@ -4,7 +4,7 @@
   "description": "CyberLoop Consulting Official Website",
   "main": "index.js",
   "scripts": {
-    "build": "run npm install && run DEBUG=cyberloop node index.js"
+    "build": "run DEBUG=cyberloop node index.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,10 @@
     "gh-pages": "^1.2.0",
     "handlebars-helpers": "^0.10.0",
     "jstransformer-handlebars": "^1.1.0",
+    "lodash": "^4.17.10",
     "metalsmith": "^2.3.0",
     "metalsmith-algolia": "^0.1.0",
+    "metalsmith-autoprefixer": "^1.1.2",
     "metalsmith-debug": "^1.2.0",
     "metalsmith-discover-partials": "^0.1.2",
     "metalsmith-drafts": "0.0.1",
@@ -32,6 +34,7 @@
     "metalsmith-layouts": "^2.1.0",
     "metalsmith-permalinks": "^0.5.0",
     "metalsmith-sitemap": "^1.2.0",
+    "metalsmith-static": "0.0.5",
     "metalsmith-watch": "^1.0.3",
     "minimist": "^1.2.0"
   },

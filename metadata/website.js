@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = () => ({
   author: "Alessandro Molari",
   keywords: [
     "Cyber Security",
@@ -9,4 +9,4 @@ module.exports = {
   ],
   description: "CyberLoop Consulting Official Website",
   hostname: "https://cyberloop.it"
-};
+});

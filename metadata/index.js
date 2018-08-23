@@ -1,9 +1,6 @@
-const deployment = require("./deployment");
-const company = require("./company");
-const website = require("./website");
-
-module.exports = {
-  company,
-  deployment,
-  website
-};
+module.exports = environment => ({
+  company: require("./company")(),
+  deployment: require("./deployment")(),
+  build: require("./build")(environment),
+  website: require("./website")()
+});

@@ -4880,7 +4880,7 @@ html.ie .absolute-y-center {
 
 /* Text with Background Effect */
 .effect-text-background {
-	background-image: url(../img/gif/people.gif);
+	background-image: url(/img/ezy/gif/people.gif);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 50% 35%;
@@ -7390,6 +7390,10 @@ html.ie .card-img-top {
 	background: #dd4b39 !important;
 }
 
+.social-icons li:hover.social-icons-github a {
+	background: #333333 !important;
+}
+
 .social-icons li:hover.social-icons-vk a {
 	background: #6383a8 !important;
 }
@@ -8000,7 +8004,7 @@ html.ie11 .scroll-to-top {
 .flag {
 	width: 16px;
 	height: 11px;
-	background: url(../img/flags.png) no-repeat;
+	background: url(/img/ezy/flags.png) no-repeat;
 	margin-top: -1px;
 }
 

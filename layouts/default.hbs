@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ locale }}">
 
 <head>
     <meta charset="UTF-8">
@@ -7,8 +7,8 @@
 
     <title>{{ default title company.name }}</title>
 
-    <meta name="keywords" content="{{ website.keywords }}">
-    <meta name="description" content="{{ join website.description }}">
+    <meta name="keywords" content="{{ join website.keywords "," }}">
+    <meta name="description" content="{{ website.description }}">
     <meta name="author" content="{{ website.author }}">
 
     <!-- Mobile Metas -->
@@ -27,8 +27,9 @@
     <link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.min.css">
 
     <!-- Theme CSS -->
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/theme-elements.css">
+    <link rel="stylesheet" href="css/ezy/theme.css">
+    <link rel="stylesheet" href="css/ezy/theme-elements.css">
+    <link rel="stylesheet" href="css/ezy/theme-elements-custom.css">
 
     <!-- Current Page CSS -->
     <link rel="stylesheet" href="vendor/rs-plugin/css/settings.css">
@@ -36,10 +37,7 @@
     <link rel="stylesheet" href="vendor/rs-plugin/css/navigation.css">
 
     <!-- Skin CSS -->
-    <link rel="stylesheet" href="css/skins/default.css">
-
-    <!-- Theme Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/ezy/skins/default.css">
 
     <!-- Head Libs -->
     <script src="vendor/modernizr/modernizr.min.js"></script>
@@ -47,10 +45,12 @@
 
 <body>
     <div class="body">
+        {{> header }}
         {{{ contents }}}
+        {{> footer }}
     </div>
 
-    {{#if watchEnabled }}
+    {{#if build.watch.enabled }}
         <script src="http://localhost:35729/livereload.js"></script>
     {{/if}}
 
@@ -72,17 +72,14 @@
     <script src="vendor/vivus/vivus.min.js"></script>
 
     <!-- Theme Base, Components and Settings -->
-    <script src="js/theme.js"></script>
+    <script src="js/ezy/theme.js"></script>
 
     <!-- Current Page Vendor and Views -->
     <script src="vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
     <script src="vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 
-    <!-- Theme Custom -->
-    <script src="js/custom.js"></script>
-
     <!-- Theme Initialization Files -->
-    <script src="js/theme.init.js"></script>
+    <script src="js/ezy/theme.init.js"></script>
 </body>
 
 </html>

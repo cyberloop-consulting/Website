@@ -1,0 +1,4 @@
+/* Add support for Github social, Ezy by default doesn't support it */
+.social-icons li:hover.social-icons-github a {
+    background: #333333 !important;
+}
