@@ -1,5 +1,12 @@
 module.exports = () => ({
   name: "CyberLoop Consulting",
+  address: {
+    country: "Italy",
+    city: "Cesena",
+    gmapsLink: "https://goo.gl/maps/gVLY9fh9Cdk"
+  },
+  email: "info@CyberLoop.it",
+  phone: "+39 347 7532861",
   socials: {
     facebook: {
       url: "https://www.facebook.com/CyberLoopConsulting",

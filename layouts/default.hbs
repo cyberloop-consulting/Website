@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="{{ locale }}">
+<html lang="{{ locale }}" class="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>{{ default title company.name }}</title>
+    <title>{{default title company.name}}</title>
 
-    <meta name="keywords" content="{{ join website.keywords "," }}">
-    <meta name="description" content="{{ website.description }}">
-    <meta name="author" content="{{ website.author }}">
+    <meta name="keywords" content="{{join website.keywords ","}}">
+    <meta name="description" content="{{website.description}}">
+    <meta name="author" content="{{website.author}}">
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
@@ -45,12 +45,12 @@
 
 <body>
     <div class="body">
-        {{> header }}
-        {{{ contents }}}
-        {{> footer }}
+        {{>header}}
+        {{{contents}}}
+        {{>footer}}
     </div>
 
-    {{#if build.watch.enabled }}
+    {{#if build.watch.enabled}}
         <script src="http://localhost:35729/livereload.js"></script>
     {{/if}}
 

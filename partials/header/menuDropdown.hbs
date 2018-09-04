@@ -1,0 +1,52 @@
+<li class="dropdown dropdown-mega order-{{order}}">
+    <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">
+        {{data.title}}
+    </a>
+
+    <ul class="dropdown-menu">
+        <li>
+            <div class="dropdown-mega-content">
+                <div class="row">
+                    {{#if (hasOwn data.sections "overview")}}
+                        <div class="col-lg-{{divide 12 (length data.sections)}} dropdown-mega-sub-content-block overlay overlay-show overlay-color-primary d-none d-lg-block"
+                             data-plugin-image-background
+                             data-plugin-options="{'imageUrl': 'img/{{data.sections.overview.bgImageFileName}}'}">
+                            <span class="top-sub-title text-color-light-2 d-block">THE MOST</span>
+                            <span class="text-color-light font-weight-bold d-block text-4 mb-2">POWERFUL</span>
+                            <p class="text-color-light-2">A revolutionary theme trusted by tons of customers</p>
+                            <a class="btn btn-dark btn-rounded btn-v-3 btn-h-2 content-block-button font-weight-semibold" href="#">GET STARTED</a>
+                        </div>
+                    {{/if}}
+
+                    {{#each data.sections}}
+                        {{#isnt @key "overview"}}
+                            <div class="col-lg-{{divide 12 (length ../data.sections)}} ml-auto">
+                                <span class="dropdown-mega-sub-title">{{title}}</span>
+                                <ul class="dropdown-mega-sub-nav">
+                                    {{#each items}}
+                                        {{#if (hasOwn this "subItems")}}
+                                        <li class="dropdown-submenu">
+                                            <a class="dropdown-item dropdown-toggle" href="#">{{title}}</a>
+                                            <ul class="dropdown-menu">
+                                                {{#each subItems}}
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{href}}">{{title}}</a>
+                                                    </li>
+                                                {{/each}}
+                                            </ul>
+                                        </li>
+                                        {{else}}
+                                            <li>
+                                                <a class="dropdown-item" href="{{href}}">{{title}}</a>
+                                            </li>
+                                        {{/if}}
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        {{/isnt}}
+                    {{/each}}
+                </div>
+            </div>
+        </li>
+    </ul>
+</li>

@@ -1,4 +1,4 @@
-// Commom Plugins
+// Common Plugins
 (function($) {
 
 	'use strict';

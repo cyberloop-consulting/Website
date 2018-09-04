@@ -1,0 +1,12 @@
+<ul class="header-top-social-icons social-icons social-icons-transparent d-none d-md-block">
+    {{#each company.socials}}
+        <li class="social-icons-{{@key}}">
+            <a href="{{this.url}}"
+               target="_blank"
+               data-toggle="tooltip"
+               data-original-title="{{this.title}}">
+                <i class="fab fa-{{@key}}"></i>
+            </a>
+        </li>
+    {{/each}}
+</ul>
