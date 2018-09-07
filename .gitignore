@@ -1,5 +1,7 @@
 # Editors / IDEs
 /.idea
+*.sublime-project
+*.sublime-workspace
 
 # Build artifacts
 /build
