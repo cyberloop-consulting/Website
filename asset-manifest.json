@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7e33e378.chunk.css",
+    "main.js": "/static/js/main.92ace4fd.chunk.js",
+    "main.js.map": "/static/js/main.92ace4fd.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.3d28f873.js",
+    "runtime-main.js.map": "/static/js/runtime-main.3d28f873.js.map",
+    "static/js/2.1c55ff5d.chunk.js": "/static/js/2.1c55ff5d.chunk.js",
+    "static/js/2.1c55ff5d.chunk.js.map": "/static/js/2.1c55ff5d.chunk.js.map",
+    "static/js/3.9adf23e3.chunk.js": "/static/js/3.9adf23e3.chunk.js",
+    "static/js/3.9adf23e3.chunk.js.map": "/static/js/3.9adf23e3.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.7e33e378.chunk.css.map": "/static/css/main.7e33e378.chunk.css.map",
+    "static/js/2.1c55ff5d.chunk.js.LICENSE.txt": "/static/js/2.1c55ff5d.chunk.js.LICENSE.txt",
+    "static/media/CYBER ATTACK.600ee9cc.svg": "/static/media/CYBER ATTACK.600ee9cc.svg",
+    "static/media/Clusit1134x591.d68113b4.jfif": "/static/media/Clusit1134x591.d68113b4.jfif",
+    "static/media/DEFENSE-IN-DEPTH.09ef8c74.svg": "/static/media/DEFENSE-IN-DEPTH.09ef8c74.svg",
+    "static/media/GOVERNANCE, RISK MANAGEMENT, AND COMPLIANCE (GRC).7e894448.svg": "/static/media/GOVERNANCE, RISK MANAGEMENT, AND COMPLIANCE (GRC).7e894448.svg",
+    "static/media/Imola_Informatica_H.98248af6.svg": "/static/media/Imola_Informatica_H.98248af6.svg",
+    "static/media/WhatWeDo.css": "/static/media/supplychain.5148ba3e.png",
+    "static/media/SECURITY AWARENESS E FORMAZIONE.8ba32243.svg": "/static/media/SECURITY AWARENESS E FORMAZIONE.8ba32243.svg",
+    "static/media/PageComponent.css": "/static/media/background_title2.0de1dc93.jpeg",
+    "static/media/logotipo.683614aa.svg": "/static/media/logotipo.683614aa.svg",
+    "static/media/veracode-black-hires.9e56cfff.svg": "/static/media/veracode-black-hires.9e56cfff.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3d28f873.js",
+    "static/js/2.1c55ff5d.chunk.js",
+    "static/css/main.7e33e378.chunk.css",
+    "static/js/main.92ace4fd.chunk.js"
+  ]
+}
